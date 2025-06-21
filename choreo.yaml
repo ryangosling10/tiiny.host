@@ -9,14 +9,4 @@ spec:
   env:
     - name: NODE_ENV
       value: production
-  buildpack:
-    language: nodejs
-    version: "20"
-  dependencies:
-    - name: python
-      version: "3.11"
-  buildCommands:
-    - pip install yt-dlp
-    - npm install
-    - npm run build
-  startCommand: npm start
+  dockerfile: Dockerfile
