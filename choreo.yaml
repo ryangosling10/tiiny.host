@@ -1,0 +1,22 @@
+apiVersion: core.choreo.dev/v1beta1
+kind: Component
+metadata:
+  name: media-downloader
+  description: Multi-platform media downloader
+spec:
+  type: web-application
+  port: 5000
+  env:
+    - name: NODE_ENV
+      value: production
+  buildpack:
+    language: nodejs
+    version: "20"
+  dependencies:
+    - name: python
+      version: "3.11"
+  buildCommands:
+    - pip install yt-dlp
+    - npm install
+    - npm run build
+  startCommand: npm start
