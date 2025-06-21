@@ -1,0 +1,12 @@
+apiVersion: core.choreo.dev/v1beta1
+kind: Component
+metadata:
+  name: media-downloader
+  description: Multi-platform media downloader
+spec:
+  type: web-application
+  port: 5000
+  env:
+    - name: NODE_ENV
+      value: production
+  dockerfile: Dockerfile
