@@ -1,0 +1,39 @@
+
+2025-06-22T02:20:24.453+05:30 Development Application Logs main 
+2025-06-22T02:20:24.453+05:30 Development Application Logs main 
+> NODE_ENV=production node dist/index.js
+2025-06-22T02:20:24.453+05:30 Development Application Logs main 
+> rest-express@1.0.0 start
+2025-06-22T02:20:24.453+05:30 Development Application Logs main 
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+Node.js v20.19.2
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+}
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+code: 'ERR_MODULE_NOT_FOUND'
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+at ModuleJob._link (node:internal/modules/esm/module_job:130:49) {
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:236:38)
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+at ModuleLoader.resolve (node:internal/modules/esm/loader:574:38)
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+at #cachedDefaultResolve (node:internal/modules/esm/loader:591:25)
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:642:12)
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+at defaultResolve (node:internal/modules/esm/resolve:1188:11)
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+at moduleResolve (node:internal/modules/esm/resolve:946:18)
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+at packageResolve (node:internal/modules/esm/resolve:873:9)
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'vite' imported from /workspace/dist/index.js
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+^
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+2025-06-22T02:20:24.574+05:30 Development Application Logs main 
+node:internal/modules/esm/resolve:873
