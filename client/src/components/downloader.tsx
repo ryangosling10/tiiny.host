@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +21,7 @@ export default function Downloader() {
   const [results, setResults] = useState<DownloadResponse | null>(null);
   const [lastDownloadTime, setLastDownloadTime] = useState(0);
   const { toast } = useToast();
+  const urlInputRef = useRef<HTMLInputElement>(null);
 
   const RATE_LIMIT = 30000; // 30 seconds
 
@@ -61,11 +62,11 @@ export default function Downloader() {
   const startCountdown = () => {
     let timeLeft = RATE_LIMIT / 1000;
     setCountdown(timeLeft);
-    
+
     const timer = setInterval(() => {
       timeLeft--;
       setCountdown(timeLeft);
-      
+
       if (timeLeft <= 0) {
         clearInterval(timer);
         setCountdown(0);
@@ -73,8 +74,18 @@ export default function Downloader() {
     }, 1000);
   };
 
-  const handleDownload = () => {
-    if (!url.trim()) {
+  const handleDownload = async () => {
+    if (!urlInputRef.current) {
+      toast({
+        title: "Error", 
+        description: "Input field not found",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const url = urlInputRef.current.value?.trim();
+    if (!url) {
       toast({
         title: "Error",
         description: "Please enter a valid URL",
@@ -86,7 +97,7 @@ export default function Downloader() {
     // Rate limiting check
     const now = Date.now();
     const timeRemaining = RATE_LIMIT - (now - lastDownloadTime);
-    
+
     if (timeRemaining > 0) {
       const seconds = Math.ceil(timeRemaining / 1000);
       toast({
@@ -113,7 +124,7 @@ export default function Downloader() {
       if (target && target.value) {
         const pastedUrl = target.value.toLowerCase();
         let detectedPlatform: Platform | null = null;
-        
+
         if (pastedUrl.includes('instagram.com') || pastedUrl.includes('instagr.am')) {
           detectedPlatform = 'instagram';
         } else if (pastedUrl.includes('youtube.com') || pastedUrl.includes('youtu.be')) {
@@ -121,7 +132,7 @@ export default function Downloader() {
         } else if (pastedUrl.includes('tiktok.com')) {
           detectedPlatform = 'tiktok';
         }
-        
+
         if (detectedPlatform && detectedPlatform !== currentPlatform) {
           setCurrentPlatform(detectedPlatform);
         }
@@ -141,18 +152,18 @@ export default function Downloader() {
           setResults(null);
         }} 
       />
-      
+
       {/* Title Section */}
       <h1 className="text-5xl font-light mb-4 tracking-tight text-white">Downloader</h1>
       <p className="text-xl font-light mb-6 opacity-90 text-white">Hi, I'm Ryan Gosling. 👋</p>
-      
+
       {/* Bio Section */}
       <div className="text-left text-sm opacity-90 leading-relaxed mb-8 text-white">
         This is my first personal project — a simple all-in-one downloader for Instagram, YouTube, and TikTok.<br /><br />
         I built this tool to learn how full-stack development works using Node.js and a clean modern UI.<br /><br />
         Feel free to use it and share feedback. Thanks for visiting!
       </div>
-      
+
       {/* Input Section */}
       <div className="flex gap-3 mb-8">
         <Input
@@ -163,6 +174,7 @@ export default function Downloader() {
           onPaste={handlePaste}
           placeholder={platformPlaceholders[currentPlatform]}
           className="flex-1 py-3.5 px-5 text-sm border-none rounded-xl outline-none bg-white bg-opacity-90 text-gray-800 placeholder-gray-600 transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-white focus:ring-opacity-30"
+          ref={urlInputRef}
         />
         <Button
           onClick={handleDownload}
@@ -172,7 +184,7 @@ export default function Downloader() {
           {isLoading ? 'Processing...' : countdown > 0 ? `Wait ${countdown}s` : 'Download'}
         </Button>
       </div>
-      
+
       {/* Results Section */}
       {results && <DownloadResults results={results} />}
     </div>
